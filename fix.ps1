@@ -779,14 +779,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v EnableMultica
 
 ipconfig /flushdns
 
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v DisableSmartNameResolution /t REG_DWORD /d 1 /f
-
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v MaxNegativeCacheTtl /t REG_DWORD /d 0 /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v NegativeCacheTime /t REG_DWORD /d 0 /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v NetFailureCacheTime /t REG_DWORD /d 0 /f
-
-netsh int ipv4 set subinterface "Ethernet" mtu=1500 store=persistent
-
 fsutil behavior set disableLastAccess 1
 fsutil behavior set encryptpagingfile 0
 
@@ -1973,51 +1965,10 @@ route -f
 :: Limpa cache de icones do sistema
 ie4uinit.exe -show
 
-:: Reinicia explorer (aplica todas as mudancas visuais)
-taskkill /f /im explorer.exe
-start explorer.exe
-
 :: ===============================
 :: ===== VISUAL / DWM EXTRA =====
 :: ===============================
 
-:: Desativa Aero Peek
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v EnableAeroPeek /t REG_DWORD /d 0 /f
-
-:: Desativa Aero Shake
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v DisallowShaking /t REG_DWORD /d 1 /f
-
-:: Desativa Snap Assist
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v SnapAssist /t REG_DWORD /d 0 /f
-
-:: Desativa animacao de janelas
-reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v MinAnimate /t REG_SZ /d 0 /f
-
-:: Desativa fade in/out de menus
-reg add "HKCU\Control Panel\Desktop" /v UserPreferencesMask /t REG_BINARY /d 9012000000000000 /f
-
-:: Desativa sombras de cursor
-reg add "HKCU\Control Panel\Cursors" /v CursorShadow /t REG_DWORD /d 0 /f
-
-:: Desativa sombras de janela
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v ListviewShadow /t REG_DWORD /d 0 /f
-
-:: Desativa ClearType (leve ganho em resolucoes altas)
-reg add "HKCU\Control Panel\Desktop" /v FontSmoothingType /t REG_DWORD /d 1 /f
-
-:: Desativa composicao de janelas extras
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v CompositionPolicy /t REG_DWORD /d 0 /f
-
-:: Desativa thumbnail da taskbar
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v ExtendedUIHoverTime /t REG_DWORD /d 99999 /f
-
-:: Desativa transicao de virtual desktop
-reg add "HKCU\Control Panel\Desktop" /v VirtualDesktopTransition /t REG_DWORD /d 0 /f
-
-:: Desativa efeito de abertura de janela
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v AnimateMinMax /t REG_DWORD /d 0 /f
-
-:: Força DWM em latencia minima
 reg add "HKLM\SOFTWARE\Microsoft\Windows\Dwm" /v OverlayTestMode /t REG_DWORD /d 5 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\Dwm" /v UseWindowedPresentation /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\Dwm" /v ForceEffectMode /t REG_DWORD /d 2 /f
